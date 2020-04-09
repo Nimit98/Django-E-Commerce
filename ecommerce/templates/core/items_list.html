@@ -1,0 +1,69 @@
+{% extends 'core/base.html' %} {% block body %}
+<title>Index</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<style>
+  .each {
+    width: 18rem;
+  }
+
+  @media only screen and (max-width:800px) {
+    .each {
+      width: 10rem;
+      margin-left: 3px;
+      overflow-x: scroll;
+    }
+  }
+</style>
+<div class="container">
+  <h1>Shirts</h1>
+  <div class="row overflow-auto" style="overflow-x: scroll;">
+    {% for item in items %}
+    {% ifequal item.category 'Sh' %}
+    <div class="each border mb-2 mr-3 px-md-3">
+      <img src="{{item.image}}" class="card-img-top" alt="..." />
+      <div>
+        <a style="font-size: larger;" href="{% url 'core:detail' pk=item.pk %}" class="card-link">{{item.product}}</a>
+        <p class="card-text">{{item.description}}</p>
+      </div>
+    </div>
+
+    {% endifequal %}
+    {% endfor %}
+
+  </div>
+  <hr />
+  <h1>Trousers</h1>
+  <div class="row overflow-auto" style="overflow-x: scroll;">
+    {% for item in items %}
+    {% ifequal item.category 'Tr' %}
+    <div class="each border mb-2 mr-3 px-md-3">
+      <img src="{{item.image}}" class="card-img-top" alt="..." />
+      <div>
+        <a style="font-size: larger;" href="{% url 'core:detail' pk=item.pk %}" class="card-link">{{item.product}}</a>
+        <p class="card-text">{{item.description}}</p>
+      </div>
+    </div>
+
+    {% endifequal %}
+    {% endfor %}
+
+  </div>
+  <h1>Blazzers</h1>
+  <div class="row overflow-auto" style="overflow-x: scroll;">
+    {% for item in items %}
+    {% ifequal item.category 'Bl' %}
+    <div class="each border mb-2 mr-3 px-md-3">
+      <img src="{{item.image}}" class="card-img-top" alt="..." />
+      <div>
+        <a style="font-size: larger;" href="{% url 'core:detail' pk=item.pk %}" class="card-link">{{item.product}}</a>
+        <p class="card-text">{{item.description}}</p>
+      </div>
+    </div>
+
+    {% endifequal %}
+    {% endfor %}
+
+  </div>
+</div>
+{% endblock %}

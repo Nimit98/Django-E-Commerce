@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{% block head_title %}{% endblock %}</title>
+  {% block extra_head %}
+  {% endblock %}
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{% url 'core:index' %}">MyShoppingWebsite</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'core:index' %}">Home <span class="sr-only">(current)</span></a>
+        </li>
+        {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'core:cart' %}">Cart</a>
+        </li>
+        {% endif %}
+      </ul>
+      <div class="navbar-nav my-2 my-lg-0">
+        {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Welcome {{request.user}}</a>
+        </li>
+        <a href="{% url 'account_logout' %}" class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</a>
+        {% else %}
+        <a href="{% url 'account_login' %}" class="mr-2 btn btn-outline-success my-2 my-sm-0" type="submit">Login</a>
+        <a href="{% url 'account_signup' %}" class="btn btn-outline-success my-2 my-sm-0" type="submit">SignUp</a>
+        {% endif %}
+
+      </div>
+    </div>
+  </nav>
+  {% block body %}
+  {% block content %}
+  {% endblock %}
+  {% endblock %}
+  {% block extra_body %}
+  {% endblock %}
+</body>
+
+</html>

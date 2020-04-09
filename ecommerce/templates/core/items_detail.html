@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+
+{% block body %}
+<title>Detail</title>
+<div class="container mt-3">
+    <div></div>
+    <div class="row">
+        <div class="col">
+            <img style="width: 500px;height: 500px" src="{{item_detail.image}}">
+        </div>
+        <div class="col">
+            <h1>{{item_detail.product}}</h1>
+            <p class="lead">{{item_detail.description}}</p>
+            <p style="font-size: 20px;">Price: {{item_detail.price}} </p>
+            {% if request.user.is_authenticated %}
+            <form method="POST">
+                {% csrf_token %}
+                <a href="{% url 'core:add_to_cart' pk=item_detail.pk %}" class="btn btn-primary"> Add to cart </a>
+            </form>
+            {% else %}
+            <div class="alert alert-primary" role="alert">
+                Login to add products to your cart!
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endblock %}
