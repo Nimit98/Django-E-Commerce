@@ -38,13 +38,18 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'core:cart' %}">Cart</a>
         </li>
+        <li class="align-middle nav-item">
+          <a class=" nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Welcome
+            {{request.user}}</a>
+        </li>
         {% endif %}
       </ul>
       <div class="navbar-nav my-2 my-lg-0">
         {% if request.user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Welcome {{request.user}}</a>
+          <a class="nav-link" href="{% url 'core:profile' %}" tabindex="-1" aria-disabled="true">Profile</a>
         </li>
+
         <a href="{% url 'account_logout' %}" class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</a>
         {% else %}
         <a href="{% url 'account_login' %}" class="mr-2 btn btn-outline-success my-2 my-sm-0" type="submit">Login</a>

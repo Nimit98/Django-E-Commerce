@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 Categories = (
     ("Sh", "Shirts"),
@@ -30,14 +31,13 @@ class ItemOrder(models.Model):
         return f"{self.user.username} has {self.quantity} of {self.item}"
 
 
-class UserList(models.Model):
+class OrderPlaced(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE)
-
-
-class OrderPlaced(models.Model):
-    user = models.ForeignKey(UserList, on_delete=models.CASCADE)
-    items = models.CharField(max_length=200)
+    item = models.ForeignKey(Items, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=0)
+    total_price = models.IntegerField(default=0)
+    time = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return str(self.user)
+        return self.user.username

@@ -6,8 +6,7 @@ from django.core.mail import send_mail
 from django.utils.html import strip_tags
 from django.template.loader import render_to_string
 from .forms import CheckoutForm
-from .models import ItemOrder, Items
-from .models import OrderPlaced
+from .models import ItemOrder, Items, OrderPlaced
 
 
 class Index(ListView):
@@ -121,6 +120,15 @@ class Payment(View):
                       fail_silently=False)
             print('sent')
             ordered_items = ItemOrder.objects.all().filter(user=self.request.user)
-
+            for item in ordered_items:
+                new_item = OrderPlaced(
+                    user=item.user, item=item.item, quantity=item.quantity,
+                    total_price=item.total_price)
+                new_item.save()
             ordered_items.delete()
             return redirect('core:index')
+
+
+def profile(request):
+    items = OrderPlaced.objects.all().filter(user=request.user).order_by('-time')
+    return render(request, 'core/profile.html', {'items': items})
